@@ -17,7 +17,7 @@ body {
  
   
 h1 {
-  color:#050505
+  color:#e2ff0a
 }
 h2 {
 margin-top: 0;
@@ -30,23 +30,27 @@ margin-bottom: 5vmin;
   grid-template-rows: repeat(3, 20vmin);  
   background-color: teal;
   padding:50px;
-  
 
 }
+
+  
 
 #board > div {
   margin: 3vmin;
-  background-color: #53baee;
+  background-color: #ffffff;
   border: 1vmin solid #000000;
   display:grid;
+  text-align: center;
+  font-size: 10vmin;
+  color: navy;
 }
 
 #board > div.avail {
-  cursor: pointer;
+  cursor: arrow;
 }
 
 #board > div.avail:hover {
-  border-color: #fff700;
+  border-color: #1f3edb;
 }
 
 
@@ -55,7 +59,6 @@ button {
   padding: 1.5vmin;
   background-color: #1220e2;
   color: white;
-  border-radius: 2vmin;
   font-size: 4vmin;
 }
 

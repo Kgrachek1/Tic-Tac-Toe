@@ -1,12 +1,11 @@
-c// Const //
+// CONSTANTS //
 const PLAYERS = {
-  '-1': 'red',
-  '1': 'cyan',
-  'null': 'white'
+  '1': 'X',
+  '-1': 'O', 
+  'null': ''
 };
-
-
-const winningCombos = [
+// 2d array //
+const WINNING_COMBOS = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -16,11 +15,12 @@ const winningCombos = [
   [0, 4, 8],
   [2, 4, 6]
 ];
-
+// THE BOARD //
 let board, turn, winner;
 const message = document.querySelector('h2');
 const playAgainBtn = document.querySelector('button');
 document.getElementById('board').addEventListener('click', handleMove);
+
 playAgainBtn.addEventListener('click', initialize);
 
 initialize();
@@ -34,7 +34,7 @@ function initialize() {
 
 function handleMove(evt) {
   const idx = parseInt(evt.target.id.replace('c-', ''));
-  if (
+  if ( 
     isNaN(idx) ||
     board[idx] ||
     winner
@@ -46,14 +46,14 @@ function handleMove(evt) {
 }
 
 function getWinner() {
-  for (let i = 0; i < winningCombos.length; i++) {
-    if (Math.abs(board[winningCombos[i][0]] + board[winningCombos[i][1]] + board[winningCombos[i][2]]) === 3) return board[winningCombos[i][0]];
+  for (let i = 0; i < WINNING_COMBOS.length; i++) {
+    if (Math.abs(board[WINNING_COMBOS[i][0]] + board[WINNING_COMBOS[i][1]] + board[WINNING_COMBOS[i][2]]) === 3) return board[WINNING_COMBOS[i][0]];
   }
 
   if (board.includes(null)) return null;
-  return 'T';
+  return 'Tie';
 }
-
+// reset //
 function render() {
   renderBoard();
   renderMessage();
@@ -64,18 +64,19 @@ function render() {
 function renderBoard() {
   board.forEach(function(sqVal, idx) {
     const squareEl = document.getElementById(`c-${idx}`);
-    squareEl.style.backgroundColor = PLAYERS[sqVal];
+    squareEl.innerHTML = PLAYERS[sqVal];
     
     squareEl.className = !sqVal ? 'avail' : '';
   });
 }
-
+// message //
 function renderMessage() {
-  if (winner === 'T') {
+  if (winner === 'Tie') {
     message.innerHTML = 'Tied try harder';
   } else if (winner) {
-    message.innerHTML = `Killing it <span style="color: ${PLAYERS[winner]}">${PLAYERS[winner].toUpperCase()}</span>!`;
+    message.innerHTML = `Crushing it <span style="color: ${PLAYERS[winner]}">${PLAYERS[winner].toUpperCase()}</span>!`;
   } else {
     message.innerHTML = `<span style="color: ${PLAYERS[turn]}">${PLAYERS[turn].toUpperCase()}</span> Turn`;
   }
 }
+
